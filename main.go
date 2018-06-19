@@ -19,6 +19,7 @@ var (
 	dnsAddr     = flag.String("lookupd-dns-address", "", "The nsqlookupd DNS entry")
 	cfgAddr     = flag.String("config-http-address", "", "The config address")
 	httpAddrCfg = flag.Bool("config-addresses-as-http", false, "Config nsqlookupd http addresses")
+	logLevel    = flag.String("log-level", "info", "Set log verbosity: debug, info, warn, warning, error, fatal")
 )
 
 func main() {
@@ -35,6 +36,7 @@ func main() {
 	}
 
 	log.SetHandler(text.New(os.Stderr))
+	log.SetLevelFromString(*logLevel)
 	ctx := log.WithFields(log.Fields{
 		"cfgAddr": *cfgAddr,
 		"dnsAddr": *dnsAddr,
